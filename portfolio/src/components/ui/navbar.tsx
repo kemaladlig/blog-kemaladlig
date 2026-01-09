@@ -21,7 +21,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
-    { name: "Projects", href: "#projects" }, // Placeholder anchor
+    { name: "Projects", href: "/projects" },
+    { name: "About", href: "/about" },
   ];
 
   return (
