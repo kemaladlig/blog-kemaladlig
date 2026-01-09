@@ -1,12 +1,16 @@
 import BentoGrid from "@/components/home/bento-grid";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getAllPosts } from "@/lib/blog";
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getAllPosts();
+  const latestPost = posts[0];
+
   return (
     <div className="space-y-16">
       <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <BentoGrid />
+        <BentoGrid latestPost={latestPost} />
       </section>
 
       <section className="space-y-6 max-w-3xl">
