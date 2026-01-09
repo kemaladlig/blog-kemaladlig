@@ -4,17 +4,21 @@ import { Github, Linkedin, MapPin, Mail, FileText, Smartphone, Server, Database,
 import Link from "next/link";
 import BlogCard from "@/components/ui/blog-card";
 import { motion } from "framer-motion";
+import type { Post } from "@/lib/blog";
 
-// Placeholder data from CV - Updated to reflect Huawei Cloud DevOps Bootcamp
-const LATEST_POST = {
-  title: "Building Scalable Cloud Architectures with Huawei Cloud",
-  excerpt: "A deep dive into container orchestration on CCE, ELB configuration, and CI/CD pipelines.",
-  date: "Oct 24, 2023",
-  slug: "kubernetes-architecture",
-  tags: ["DevOps", "Huawei Cloud", "Kubernetes"],
-};
+interface BentoGridProps {
+  latestPost?: Post;
+}
 
-export default function BentoGrid() {
+export default function BentoGrid({ latestPost }: BentoGridProps) {
+  const displayPost = latestPost || {
+    title: "No recent posts",
+    excerpt: "Check back later for new content.",
+    date: "",
+    slug: "#",
+    tags: [],
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[180px]">
 
@@ -109,7 +113,14 @@ export default function BentoGrid() {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="md:col-span-2 row-span-1"
       >
-        <BlogCard {...LATEST_POST} className="h-full" />
+        <BlogCard
+          title={displayPost.title}
+          excerpt={displayPost.excerpt}
+          date={displayPost.date}
+          slug={displayPost.slug}
+          tags={displayPost.tags}
+          className="h-full"
+        />
       </motion.div>
 
       {/* 6. CV Download / Resume */}
