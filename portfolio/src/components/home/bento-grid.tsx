@@ -48,7 +48,14 @@ export default function BentoGrid() {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="md:col-span-1 row-span-1 bg-gray-900 text-white rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group"
       >
-        <div className="absolute inset-0 opacity-50 bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/28.9784,41.0082,11,0/400x400?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500" />
+        <div
+          className="absolute inset-0 opacity-50 bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-500"
+          style={{
+            backgroundImage: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+              ? `url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/28.9784,41.0082,11,0/400x400?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}')`
+              : undefined,
+          }}
+        />
         <div className="absolute inset-0 bg-black/40 z-0" />
         <div className="z-10 relative h-full flex flex-col justify-between">
             <div className="bg-white/10 backdrop-blur-md w-fit p-2 rounded-full">
