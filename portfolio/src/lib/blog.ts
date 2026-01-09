@@ -1,6 +1,6 @@
-// Placeholder for markdown logic
-// In a real app, this would use fs and path to read .mdx files
-// and a library like gray-matter to parse frontmatter.
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 export type Post = {
     slug: string;
@@ -11,74 +11,61 @@ export type Post = {
     tags: string[];
 };
 
-export const posts: Post[] = [
-    {
-        slug: "kubernetes-architecture",
-        title: "Building Scalable Cloud Architectures with Kubernetes",
-        date: "Oct 24, 2023",
-        excerpt: "A deep dive into container orchestration, ELB configuration, and CI/CD pipelines on Huawei Cloud.",
-        tags: ["DevOps", "Kubernetes", "Cloud"],
-        content: `
-# Building Scalable Cloud Architectures with Kubernetes
-
-Kubernetes has become the de-facto standard for container orchestration. In this post, I'll share my experience building a scalable search engine infrastructure using K8s.
-
-## The Challenge
-
-We needed a way to manage microservices that could scale up during high traffic and scale down during quiet periods to save costs.
-
-## The Solution
-
-We utilized Huawei Cloud's CCE (Cloud Container Engine) to manage our clusters.
-
-### Key Components:
-- **ELB (Elastic Load Balance):** Distributes incoming traffic.
-- **SWR (SoftWare Repository):** Manages our Docker images.
-- **Auto-scaling Policies:** Configured based on CPU and Memory usage.
-
-## Conclusion
-
-By adopting a cloud-native approach, we achieved 99.9% availability and reduced deployment times by 60%.
-        `
-    },
-    {
-        slug: "react-native-optimization",
-        title: "Optimizing React Native Performance",
-        date: "Jan 15, 2024",
-        excerpt: "Tips and tricks for achieving 60fps animations and fast startup times in Expo apps.",
-        tags: ["Mobile", "React Native", "Performance"],
-        content: "Content coming soon..."
-    },
-    {
-        slug: "mastering-typescript-generics",
-        title: "Mastering TypeScript Generics",
-        date: "Feb 10, 2024",
-        excerpt: "A comprehensive guide to understanding and using generics in TypeScript for building reusable components.",
-        tags: ["TypeScript", "Web Development"],
-        content: "Content coming soon..."
-    },
-    {
-        slug: "ci-cd-pipelines-with-github-actions",
-        title: "Automating Deployments with GitHub Actions",
-        date: "Mar 05, 2024",
-        excerpt: "Learn how to set up robust CI/CD pipelines for your Next.js applications using GitHub Actions.",
-        tags: ["DevOps", "CI/CD", "GitHub"],
-        content: "Content coming soon..."
-    },
-    {
-        slug: "introduction-to-framer-motion",
-        title: "Animating React with Framer Motion",
-        date: "Apr 22, 2024",
-        excerpt: "Bring your React applications to life with smooth and declarative animations using Framer Motion.",
-        tags: ["React", "Animation", "Framer Motion"],
-        content: "Content coming soon..."
-    }
-];
+const postsDirectory = path.join(process.cwd(), 'src/content/posts');
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
-    return posts.find((post) => post.slug === slug);
+    try {
+        const realSlug = slug.replace(/\.mdx$/, '');
+        const fullPath = path.join(postsDirectory, `${realSlug}.mdx`);
+
+        if (!fs.existsSync(fullPath)) {
+            return undefined;
+        }
+
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        const { data, content } = matter(fileContents);
+
+        return {
+            slug: realSlug,
+            title: data.title,
+            date: data.date,
+            excerpt: data.excerpt,
+            tags: data.tags,
+            content: content,
+        } as Post;
+    } catch (error) {
+        console.error(`Error reading post ${slug}:`, error);
+        return undefined;
+    }
 }
 
 export async function getAllPosts(): Promise<Post[]> {
-    return posts;
+    if (!fs.existsSync(postsDirectory)) {
+        console.warn(`Posts directory not found at ${postsDirectory}`);
+        return [];
+    }
+
+    const fileNames = fs.readdirSync(postsDirectory);
+    const allPostsData = fileNames
+        .filter((fileName) => fileName.endsWith('.mdx'))
+        .map((fileName) => {
+            const slug = fileName.replace(/\.mdx$/, '');
+            const fullPath = path.join(postsDirectory, fileName);
+            const fileContents = fs.readFileSync(fullPath, 'utf8');
+            const { data, content } = matter(fileContents);
+
+            return {
+                slug,
+                title: data.title,
+                date: data.date,
+                excerpt: data.excerpt,
+                tags: data.tags,
+                content: content,
+            } as Post;
+        });
+
+    // Sort posts by date
+    return allPostsData.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 }
