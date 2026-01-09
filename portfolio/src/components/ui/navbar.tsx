@@ -63,7 +63,8 @@ export default function Navbar() {
           <div className="flex md:hidden items-center gap-4">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-accent/10 transition-colors"
+              className="p-2 rounded-full hover:bg-accent/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+              aria-label="Toggle theme"
             >
               {mounted && theme === "dark" ? (
                 <Sun className="h-5 w-5" />
@@ -73,7 +74,8 @@ export default function Navbar() {
             </button>
             <button
               onClick={toggleMenu}
-              className="p-2 rounded-md hover:bg-accent/10 transition-colors"
+              className="p-2 rounded-md hover:bg-accent/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
