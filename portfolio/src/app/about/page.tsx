@@ -180,8 +180,8 @@ export default function AboutPage() {
             {skills.map((skill) => (
                 <motion.div
                     key={skill}
-                    whileHover={{ scale: 1.05 }}
-                    className="px-4 py-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-sm text-sm font-medium"
+                    whileHover={{ scale: 1.05, borderColor: "rgba(var(--accent-rgb), 0.5)" }}
+                    className="px-4 py-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-sm text-sm font-medium cursor-default transition-colors"
                 >
                     {skill}
                 </motion.div>

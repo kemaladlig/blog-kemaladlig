@@ -112,7 +112,7 @@ export default function ProjectsPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-auto">
+            <div className="flex flex-wrap gap-2 mt-auto mb-4">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
@@ -121,6 +121,10 @@ export default function ProjectsPage() {
                   {tag}
                 </span>
               ))}
+            </div>
+
+            <div className="mt-2 text-sm font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0 duration-300">
+              View Project &rarr;
             </div>
           </motion.div>
         ))}

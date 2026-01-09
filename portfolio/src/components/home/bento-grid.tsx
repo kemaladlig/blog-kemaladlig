@@ -43,7 +43,7 @@ export default function BentoGrid({ latestPost }: BentoGridProps) {
         </div>
 
         {/* Abstract decoration */}
-        <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-colors" />
+        <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 animate-pulse transition-colors duration-1000" />
       </motion.div>
 
       {/* 2. Map / Location Tile */}
@@ -65,9 +65,14 @@ export default function BentoGrid({ latestPost }: BentoGridProps) {
             <div className="bg-white/10 backdrop-blur-md w-fit p-2 rounded-full">
                 <MapPin className="h-5 w-5 text-white" />
             </div>
-            <div>
-                <p className="text-xs font-mono text-gray-300">BASED IN</p>
-                <p className="font-bold text-lg">Istanbul, TR</p>
+            <div className="flex justify-between items-end">
+                <div>
+                  <p className="text-xs font-mono text-gray-300">BASED IN</p>
+                  <p className="font-bold text-lg">Istanbul, TR</p>
+                </div>
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-medium bg-black/50 backdrop-blur-sm px-2 py-1 rounded text-white">
+                  View Map
+                </div>
             </div>
         </div>
       </motion.div>
@@ -100,10 +105,18 @@ export default function BentoGrid({ latestPost }: BentoGridProps) {
       >
          <p className="text-xs font-mono text-gray-500 uppercase tracking-wider">Tech Stack</p>
          <div className="grid grid-cols-4 gap-4 text-gray-600 dark:text-gray-400">
-            <Smartphone className="h-6 w-6 hover:text-accent transition-colors" />
-            <Cloud className="h-6 w-6 hover:text-accent transition-colors" />
-            <Server className="h-6 w-6 hover:text-accent transition-colors" />
-            <Database className="h-6 w-6 hover:text-accent transition-colors" />
+            <div title="Mobile Development" className="cursor-help">
+              <Smartphone className="h-6 w-6 hover:text-accent transition-colors" />
+            </div>
+            <div title="Cloud Infrastructure" className="cursor-help">
+              <Cloud className="h-6 w-6 hover:text-accent transition-colors" />
+            </div>
+            <div title="Backend Systems" className="cursor-help">
+              <Server className="h-6 w-6 hover:text-accent transition-colors" />
+            </div>
+            <div title="Databases" className="cursor-help">
+              <Database className="h-6 w-6 hover:text-accent transition-colors" />
+            </div>
          </div>
       </motion.div>
 
