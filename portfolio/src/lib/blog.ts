@@ -48,6 +48,30 @@ By adopting a cloud-native approach, we achieved 99.9% availability and reduced 
         excerpt: "Tips and tricks for achieving 60fps animations and fast startup times in Expo apps.",
         tags: ["Mobile", "React Native", "Performance"],
         content: "Content coming soon..."
+    },
+    {
+        slug: "mastering-typescript-generics",
+        title: "Mastering TypeScript Generics",
+        date: "Feb 10, 2024",
+        excerpt: "A comprehensive guide to understanding and using generics in TypeScript for building reusable components.",
+        tags: ["TypeScript", "Web Development"],
+        content: "Content coming soon..."
+    },
+    {
+        slug: "ci-cd-pipelines-with-github-actions",
+        title: "Automating Deployments with GitHub Actions",
+        date: "Mar 05, 2024",
+        excerpt: "Learn how to set up robust CI/CD pipelines for your Next.js applications using GitHub Actions.",
+        tags: ["DevOps", "CI/CD", "GitHub"],
+        content: "Content coming soon..."
+    },
+    {
+        slug: "introduction-to-framer-motion",
+        title: "Animating React with Framer Motion",
+        date: "Apr 22, 2024",
+        excerpt: "Bring your React applications to life with smooth and declarative animations using Framer Motion.",
+        tags: ["React", "Animation", "Framer Motion"],
+        content: "Content coming soon..."
     }
 ];
 
