@@ -5,13 +5,13 @@ import Link from "next/link";
 import BlogCard from "@/components/ui/blog-card";
 import { motion } from "framer-motion";
 
-// Placeholder data from CV
+// Placeholder data from CV - Updated to reflect Huawei Cloud DevOps Bootcamp
 const LATEST_POST = {
-  title: "Building Scalable Cloud Architectures with Kubernetes",
-  excerpt: "A deep dive into container orchestration, ELB configuration, and CI/CD pipelines on Huawei Cloud.",
+  title: "Building Scalable Cloud Architectures with Huawei Cloud",
+  excerpt: "A deep dive into container orchestration on CCE, ELB configuration, and CI/CD pipelines.",
   date: "Oct 24, 2023",
   slug: "kubernetes-architecture",
-  tags: ["DevOps", "Kubernetes", "Cloud"],
+  tags: ["DevOps", "Huawei Cloud", "Kubernetes"],
 };
 
 export default function BentoGrid() {

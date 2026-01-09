@@ -9,30 +9,30 @@ export default function ProjectsPage() {
     {
       title: "Rahmet Eli",
       description:
-        "A comprehensive cross-platform lifestyle application that connects users with community resources. Features include real-time event updates, community forums, and resource mapping.",
-      tags: ["React Native", "TypeScript", "Redux Toolkit", "Firebase", "Maps API"],
+        "Designed and developed a cross-platform lifestyle application using React Native and Expo. Implemented robust backend services using Firebase (Auth, Firestore, Cloud Messaging). Published on both App Store and Google Play Store.",
+      tags: ["React Native", "Expo", "Firebase", "TypeScript"],
       links: {
-        github: "https://github.com/kemaladlig", // Mock link
-        demo: "https://example.com/rahmet-eli",
+        github: "https://github.com/kemaladlig", // Mock link as per prompt
+        demo: null, // No demo link provided
       },
       featured: true,
     },
     {
-      title: "K8s Search Engine",
+      title: "K8s Search",
       description:
-        "A powerful search tool designed for Kubernetes administrators. It allows for quick querying of kubectl commands and resource definitions, containerized and orchestrated on a live K8s cluster.",
-      tags: ["React", "Node.js", "Kubernetes", "Docker", "Elasticsearch"],
+        "Built a comprehensive web-based search engine for Kubernetes (kubectl) commands. Developed full-stack architecture using React.js and Node.js. Containerized the application stack using Docker and orchestrated the deployment on a live Kubernetes cluster with Load Balancers and auto-scaling policies.",
+      tags: ["React", "Node.js", "Kubernetes", "Docker", "DevOps"],
       links: {
         github: "https://github.com/kemaladlig", // Mock link
-        demo: "https://example.com/k8s-search",
+        demo: null,
       },
       featured: true,
     },
     {
-      title: "TaskMaster Pro",
+      title: "Robotic System Control App",
       description:
-        "A productivity application focused on agile project management. Includes kanban boards, sprint planning tools, and team collaboration features.",
-      tags: ["Next.js", "PostgreSQL", "Prisma", "Tailwind CSS"],
+        "Developed a cross-platform Flutter application for real-time communication with robotic systems. Implemented remote control protocols (TCP/IP, Bluetooth) and designed a responsive UI.",
+      tags: ["Flutter", "Dart", "TCP/IP", "Bluetooth"],
       links: {
         github: "https://github.com/kemaladlig", // Mock link
         demo: null,
@@ -40,10 +40,10 @@ export default function ProjectsPage() {
       featured: false,
     },
     {
-      title: "DevOps Dashboard",
+      title: "HMS Integration",
       description:
-        "A centralized dashboard for monitoring CI/CD pipelines, server health, and deployment statuses across multiple environments.",
-      tags: ["Vue.js", "Go", "Prometheus", "Grafana"],
+        "Integrated Huawei Mobile Services (HMS) kits (Location, Push, Analytics) into various applications, significantly enhancing user engagement.",
+      tags: ["HMS Core", "Android", "Kotlin", "Java"],
       links: {
         github: "https://github.com/kemaladlig", // Mock link
         demo: null,
@@ -62,7 +62,7 @@ export default function ProjectsPage() {
       <div className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight">Projects</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-          A showcase of my recent work, side projects, and open source contributions.
+          A showcase of my recent work, including mobile applications, full-stack web projects, and DevOps implementations.
         </p>
       </div>
 
