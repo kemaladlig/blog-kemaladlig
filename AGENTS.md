@@ -13,7 +13,7 @@ You are an expert software architect specializing in Next.js, React, TypeScript,
 - **Animation:** Framer Motion
 - **Content:** MDX (via next-mdx-remote)
 - **Icons:** Lucide React
-- **Package Manager:** npm (based on lockfile)
+- **Package Manager:** Bun (preferred) or npm
 
 # 3. Coding Standards (The "Senior" Way)
 - **Functional Paradigm:** Use functional components and Hooks. Avoid Classes.

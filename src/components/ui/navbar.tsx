@@ -34,9 +34,11 @@ export default function Navbar() {
       <div className="mx-auto max-w-5xl mt-6 hidden md:block">
         <div className="glass rounded-full px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5 dark:shadow-white/5">
           {/* Logo */}
-          <Link href="/" className="font-bold text-xl tracking-tight flex items-center group font-mono">
-            <span className="group-hover:text-foreground transition-colors">kemal</span>
-            <span className="text-primary group-hover:text-primary/80 transition-colors">.dev</span>
+          {/* Logo */}
+          <Link href="/" className="font-bold text-xl tracking-tight flex items-center gap-1 group font-heading">
+            <span className="group-hover:text-foreground transition-colors">Kemal</span>
+            <span className="text-primary group-hover:text-primary/80 transition-colors">Adlığ</span>
+            <span className="text-muted-foreground font-normal text-sm ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">.dev</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -84,8 +86,8 @@ export default function Navbar() {
       {/* Mobile Nav - Standard Full Width */}
       <div className="md:hidden glass border-b border-border">
         <div className="px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-lg tracking-tight font-mono">
-            kemal<span className="text-primary">.dev</span>
+          <Link href="/" className="font-bold text-lg tracking-tight font-heading">
+            Kemal<span className="text-primary">Adlığ</span>
           </Link>
 
           <div className="flex items-center gap-4">

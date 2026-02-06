@@ -88,7 +88,7 @@ export default function AboutPage() {
         <h1 className="text-4xl font-bold tracking-tight">About Me</h1>
         <div className="prose dark:prose-invert max-w-none text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           <p>
-            I'm a full-stack mobile developer specializing in React Native and TypeScript, passionate about building scalable applications with cloud infrastructure, real-time features, and premium monetization systems. Based in Istanbul, I transform complex technical challenges into exceptional user experiences.
+            I&apos;m a full-stack mobile developer specializing in React Native and TypeScript, passionate about building scalable applications with cloud infrastructure, real-time features, and premium monetization systems. Based in Istanbul, I transform complex technical challenges into exceptional user experiences.
           </p>
           <p>
             With a proven track record of designing, building, and publishing cross-platform mobile apps (React Native/Kotlin), I also manage scalable cloud infrastructure.
@@ -136,56 +136,56 @@ export default function AboutPage() {
       {/* Education Section */}
       <section className="space-y-8">
         <div className="flex items-center gap-3">
-            <GraduationCap className="h-6 w-6 text-accent" />
-            <h2 className="text-2xl font-bold tracking-tight">Education</h2>
+          <GraduationCap className="h-6 w-6 text-accent" />
+          <h2 className="text-2xl font-bold tracking-tight">Education</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-1">
-            {education.map((edu, index) => (
-                <div key={index} className="p-6 rounded-2xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
-                    <h3 className="font-semibold text-lg">{edu.school}</h3>
-                    <p className="text-gray-500 text-sm mb-2">{edu.degree}</p>
-                    <span className="text-xs font-mono bg-accent/10 text-accent px-2 py-1 rounded">{edu.period}</span>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-3">{edu.description}</p>
-                </div>
-            ))}
+          {education.map((edu, index) => (
+            <div key={index} className="p-6 rounded-2xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
+              <h3 className="font-semibold text-lg">{edu.school}</h3>
+              <p className="text-gray-500 text-sm mb-2">{edu.degree}</p>
+              <span className="text-xs font-mono bg-accent/10 text-accent px-2 py-1 rounded">{edu.period}</span>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-3">{edu.description}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Certifications Section */}
       <section className="space-y-8">
         <div className="flex items-center gap-3">
-            <FileBadge className="h-6 w-6 text-accent" />
-            <h2 className="text-2xl font-bold tracking-tight">Certifications & Training</h2>
+          <FileBadge className="h-6 w-6 text-accent" />
+          <h2 className="text-2xl font-bold tracking-tight">Certifications & Training</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-            {certifications.map((cert, index) => (
-                <div key={index} className="p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 flex flex-col justify-between">
-                    <div>
-                        <h3 className="font-medium">{cert.name}</h3>
-                        <p className="text-sm text-gray-500 mt-1">{cert.issuer}</p>
-                    </div>
-                    <p className="text-xs text-accent mt-3 font-mono">{cert.date}</p>
-                </div>
-            ))}
+          {certifications.map((cert, index) => (
+            <div key={index} className="p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 flex flex-col justify-between">
+              <div>
+                <h3 className="font-medium">{cert.name}</h3>
+                <p className="text-sm text-gray-500 mt-1">{cert.issuer}</p>
+              </div>
+              <p className="text-xs text-accent mt-3 font-mono">{cert.date}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Skills Section */}
       <section className="space-y-6">
         <div className="flex items-center gap-3">
-            <Award className="h-6 w-6 text-accent" />
-            <h2 className="text-2xl font-bold tracking-tight">Technical Skills</h2>
+          <Award className="h-6 w-6 text-accent" />
+          <h2 className="text-2xl font-bold tracking-tight">Technical Skills</h2>
         </div>
         <div className="flex flex-wrap gap-3">
-            {skills.map((skill) => (
-                <motion.div
-                    key={skill}
-                    whileHover={{ scale: 1.05 }}
-                    className="px-4 py-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-sm text-sm font-medium"
-                >
-                    {skill}
-                </motion.div>
-            ))}
+          {skills.map((skill) => (
+            <motion.div
+              key={skill}
+              whileHover={{ scale: 1.05 }}
+              className="px-4 py-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-sm text-sm font-medium"
+            >
+              {skill}
+            </motion.div>
+          ))}
         </div>
       </section>
     </motion.div>

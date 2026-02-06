@@ -45,11 +45,13 @@ const config: Config = {
         ring: "hsl(var(--ring))",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
+        sans: ["var(--font-sans)", "var(--font-inter)", "sans-serif"],
+        heading: ["var(--font-heading)", "sans-serif"],
       },
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",
         "meteor-effect": "meteor 5s linear infinite",
+        "fade-in-up": "fade-in-up 0.8s ease-out forwards",
       },
       keyframes: {
         spotlight: {
@@ -60,6 +62,16 @@ const config: Config = {
           "100%": {
             opacity: "1",
             transform: "translate(-50%,-40%) scale(1)",
+          },
+        },
+        "fade-in-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
           },
         },
         meteor: {

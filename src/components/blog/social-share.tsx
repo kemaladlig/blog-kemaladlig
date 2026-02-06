@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Share2, Twitter, Linkedin, Link2, Check } from "lucide-react";
+import { Twitter, Linkedin, Link2, Check } from "lucide-react";
 
 interface SocialShareProps {
   title: string;
@@ -30,7 +30,7 @@ export default function SocialShare({ title, excerpt, url }: SocialShareProps) {
   return (
     <div className="flex items-center gap-4">
       <span className="text-sm text-gray-600 dark:text-gray-400">Share:</span>
-      
+
       <a
         href={shareUrls.twitter}
         target="_blank"

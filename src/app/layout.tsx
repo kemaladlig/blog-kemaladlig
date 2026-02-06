@@ -1,21 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google"; // You might want to switch to 'Geist Sans' or 'Plus Jakarta Sans' for a more modern look
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/ui/navbar";
 import { cn } from "@/lib/utils";
 
+import { Outfit, Plus_Jakarta_Sans, Inter } from "next/font/google";
+
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-heading" });
+// Keeping Inter as fallback or precise data font if needed, but primary will be Outfit
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Kemal Adlığ | Mobile & Cloud Architect",
-  description: "Senior Mobile Developer & Cloud Architect. Building scalable applications with React Native, Supabase, and Kubernetes.",
+  description: "Mobile Developer & Cloud Architect. Building scalable applications with React Native, Supabase, and Kubernetes.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev',
     title: "Kemal Adlığ | Mobile & Cloud Architect",
-    description: "Senior Mobile Developer & Cloud Architect. Building scalable applications with React Native, Supabase, and Kubernetes.",
+    description: "Mobile Developer & Cloud Architect. Building scalable applications with React Native, Supabase, and Kubernetes.",
     siteName: "Kemal Adlığ",
     images: [
       {
@@ -46,6 +50,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body className={cn(
+        outfit.variable,
+        plusJakarta.variable,
         inter.variable,
         "font-sans antialiased min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/30 selection:text-primary relative dark:bg-black bg-white dark:bg-grid-white/[0.05] bg-grid-black/[0.05]"
       )}>

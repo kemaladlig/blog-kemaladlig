@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Search, Filter, X } from "lucide-react";
 import BlogCard from "@/components/ui/blog-card";
 
@@ -110,13 +110,13 @@ export default function BlogSearchClient({ posts }: { posts: Post[] }) {
             ? `Found ${filteredPosts.length} post${filteredPosts.length !== 1 ? "s" : ""}`
             : `Showing all ${filteredPosts.length} post${filteredPosts.length !== 1 ? "s" : ""}`}
         </p>
-        
+
         {/* Active Filters Display */}
         {hasActiveFilters && (
           <div className="flex gap-2">
             {searchTerm && (
               <span className="px-2 py-1 text-xs bg-accent/10 text-accent rounded-full">
-                Search: "{searchTerm}"
+                Search: &quot;{searchTerm}&quot;
               </span>
             )}
             {selectedTag && (

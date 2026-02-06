@@ -2,7 +2,7 @@
 
 import { useId } from "react";
 
-interface GridPatternProps {
+interface GridPatternProps extends React.SVGProps<SVGSVGElement> {
     width?: number;
     height?: number;
     x?: number;
@@ -10,7 +10,6 @@ interface GridPatternProps {
     squares?: Array<[x: number, y: number]>;
     strokeDasharray?: string;
     className?: string;
-    [key: string]: any;
 }
 
 export function GridPattern({

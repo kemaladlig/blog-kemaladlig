@@ -1,15 +1,18 @@
 import BentoGrid from "@/components/home/bento-grid";
+import Hero from "@/components/home/hero";
 import Link from "next/link";
-import { ArrowRight, Star, ExternalLink } from "lucide-react"; import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Star, Smartphone, Server } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 // Home Page Component
 export default function Home() {
   return (
     <div className="relative w-full overflow-hidden">
 
+      <Hero />
 
-      <div className="space-y-24 pb-20">
-        <section className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 pt-10">
+      <div className="space-y-24 pb-20 container mx-auto px-4 md:px-6">
+        <section className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
           <BentoGrid />
         </section>
 
@@ -94,45 +97,4 @@ export default function Home() {
   );
 }
 
-// Simple icons for the project cards if not imported
-function Smartphone(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-      <path d="M12 18h.01" />
-    </svg>
-  )
-}
-
-function Server(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-      <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-      <line x1="6" x2="6.01" y1="6" y2="6" />
-      <line x1="6" x2="6.01" y1="18" y2="18" />
-    </svg>
-  )
-}
+// Local icons removed in favor of lucide-react imports

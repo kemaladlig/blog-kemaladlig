@@ -4,16 +4,17 @@ import { Github, Linkedin, MapPin, Mail, FileText, Smartphone, Server, Database,
 import Link from "next/link";
 import { MagicCard } from "@/components/ui/magic-card";
 import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/tech-badge";
 
 
 
 // Fallback post data for client component
 const LATEST_POST = {
-  title: "Building Scalable Cloud Architectures",
-  excerpt: "A deep dive into container orchestration, ELB configuration, and CI/CD pipelines.",
-  date: "Oct 24, 2023",
-  slug: "kubernetes-architecture",
-  tags: ["DevOps", "K8s"],
+  title: "Next-Gen Mobile DevOps Architecture",
+  excerpt: "Orchestrating React Native builds with Kubernetes and modern CI/CD pipelines.",
+  date: "Feb 02, 2025",
+  slug: "mobile-devops-2025",
+  tags: ["DevOps", "Mobile"],
 };
 
 export default function BentoGrid() {
@@ -93,33 +94,31 @@ export default function BentoGrid() {
       </MagicCard>
 
       {/* 4. Tech Stack "Grid" - Focus on DevOps/Cloud - Vertical Stack */}
-      <MagicCard className="md:col-span-1 row-span-1 p-6 flex flex-col items-center justify-center gap-6" gradientColor="#10b981">
-        <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest absolute top-6 left-6">STACK</p>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-4">
-          <div className="flex flex-col items-center gap-2 group">
-            <div className="p-2 rounded-lg bg-secondary/50 group-hover:bg-primary/20 transition-colors">
-              <Smartphone className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">Mobile</span>
-          </div>
-          <div className="flex flex-col items-center gap-2 group">
-            <div className="p-2 rounded-lg bg-secondary/50 group-hover:bg-primary/20 transition-colors">
-              <Cloud className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">Cloud</span>
-          </div>
-          <div className="flex flex-col items-center gap-2 group">
-            <div className="p-2 rounded-lg bg-secondary/50 group-hover:bg-primary/20 transition-colors">
-              <Server className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">Backend</span>
-          </div>
-          <div className="flex flex-col items-center gap-2 group">
-            <div className="p-2 rounded-lg bg-secondary/50 group-hover:bg-primary/20 transition-colors">
-              <Database className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">Data</span>
-          </div>
+      <MagicCard className="md:col-span-1 row-span-1 p-4 flex flex-col justify-between relative overflow-hidden" gradientColor="#10b981">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-20" />
+
+        {/* Relative Header to prevent overlap */}
+        <div className="w-full flex justify-center pb-2">
+          <p className="text-[10px] font-mono text-muted-foreground/60 uppercase tracking-widest">CORE STACK</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 w-full place-items-center">
+          <TechBadge
+            icon={<Smartphone className="h-4 w-4" />}
+            label="React Native"
+          />
+          <TechBadge
+            icon={<Cloud className="h-4 w-4" />}
+            label="AWS / Cloud"
+          />
+          <TechBadge
+            icon={<Server className="h-4 w-4" />}
+            label="Node.js"
+          />
+          <TechBadge
+            icon={<Database className="h-4 w-4" />}
+            label="PostgreSQL"
+          />
         </div>
       </MagicCard>
 
