@@ -5,13 +5,13 @@ import Link from "next/link";
 import BlogCard from "@/components/ui/blog-card";
 import { motion } from "framer-motion";
 
-// Placeholder data from CV - Updated to reflect Huawei Cloud DevOps Bootcamp
+// Fallback post data for client component
 const LATEST_POST = {
-  title: "Building Scalable Cloud Architectures with Huawei Cloud",
+  title: "Building Scalable Cloud Architectures with Kubernetes",
   excerpt: "A deep dive into container orchestration on CCE, ELB configuration, and CI/CD pipelines.",
   date: "Oct 24, 2023",
   slug: "kubernetes-architecture",
-  tags: ["DevOps", "Huawei Cloud", "Kubernetes"],
+  tags: ["DevOps", "Kubernetes", "Cloud"],
 };
 
 export default function BentoGrid() {
@@ -106,7 +106,9 @@ export default function BentoGrid() {
       </motion.div>
 
       {/* 6. CV Download / Resume */}
-      <motion.div
+      <motion.a
+        href="/Kemal_Adlig_CV.pdf"
+        download="Kemal_Adlig_CV.pdf"
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="md:col-span-1 row-span-1 bg-gray-50 dark:bg-zinc-900 rounded-3xl p-6 flex flex-col items-center justify-center gap-2 group cursor-pointer border border-transparent hover:border-gray-200 dark:hover:border-zinc-800"
@@ -115,7 +117,7 @@ export default function BentoGrid() {
             <FileText className="h-8 w-8 text-accent" />
         </div>
         <span className="font-medium text-sm">Download CV</span>
-      </motion.div>
+      </motion.a>
 
     </div>
   );

@@ -19,26 +19,26 @@ export default function Home() {
 
         <div className="space-y-10">
             <div className="group">
+                <h3 className="text-xl font-semibold group-hover:text-accent transition-colors">KpssArena</h3>
+                <p className="text-gray-500 text-sm mb-3 font-mono">Mobile Gaming • React Native, Expo, Supabase</p>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Comprehensive exam preparation platform with gamified learning, multiplayer arena battles, and premium monetization. Features real-time competitive gameplay and offline-first architecture.
+                </p>
+            </div>
+
+            <div className="group">
                 <h3 className="text-xl font-semibold group-hover:text-accent transition-colors">Rahmet Eli</h3>
-                <p className="text-gray-500 text-sm mb-3 font-mono">Mobile Application • React Native, Firebase</p>
+                <p className="text-gray-500 text-sm mb-3 font-mono">Islamic Lifestyle App • React Native, Firebase</p>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Designed and developed a cross-platform lifestyle application. Managed complete product lifecycle from requirement analysis to deployment on App Store and Google Play.
+                    Cross-platform Islamic application with prayer times, Qibla compass, YouTube integration, and real-time notifications. Published on App Store and Google Play with advanced features.
                 </p>
             </div>
 
             <div className="group">
-                <h3 className="text-xl font-semibold group-hover:text-accent transition-colors">K8s Search</h3>
-                <p className="text-gray-500 text-sm mb-3 font-mono">Web Tool & DevOps • React, Node.js, Kubernetes</p>
+                <h3 className="text-xl font-semibold group-hover:text-accent transition-colors">Kubectl Command Tool</h3>
+                <p className="text-gray-500 text-sm mb-3 font-mono">DevOps Tool • React, Node.js, Kubernetes</p>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Built a comprehensive search engine for kubectl commands. Containerized and orchestrated on a live K8s cluster with auto-scaling policies.
-                </p>
-            </div>
-
-            <div className="group">
-                <h3 className="text-xl font-semibold group-hover:text-accent transition-colors">Robotic System Control</h3>
-                <p className="text-gray-500 text-sm mb-3 font-mono">Mobile Control App • Flutter, TCP/IP</p>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Developed a cross-platform Flutter application for real-time communication with robotic systems, implementing remote control protocols (TCP/IP, Bluetooth).
+                    Full-stack web application for Kubernetes command discovery with fuzzy search, deployed on live K8s cluster with Docker containers and SSL certification.
                 </p>
             </div>
         </div>

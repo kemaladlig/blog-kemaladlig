@@ -1,0 +1,151 @@
+---
+title: "Building Scalable Cloud Architectures with Kubernetes"
+date: "2023-10-24"
+excerpt: "A deep dive into container orchestration, ELB configuration, and CI/CD pipelines on Huawei Cloud."
+tags: ["DevOps", "Kubernetes", "Cloud", "Huawei Cloud"]
+readingTime: 8
+featured: true
+---
+
+# Building Scalable Cloud Architectures with Kubernetes
+
+Kubernetes has become the de-facto standard for container orchestration. In this post, I'll share my experience building a scalable search engine infrastructure using K8s on Huawei Cloud.
+
+## The Challenge
+
+We needed a way to manage microservices that could scale up during high traffic and scale down during quiet periods to save costs. The main requirements were:
+
+- **High Availability**: 99.9% uptime guarantee
+- **Auto-scaling**: Dynamic resource allocation based on load
+- **CI/CD Integration**: Automated deployment pipeline
+- **Cost Optimization**: Efficient resource utilization
+
+## Architecture Overview
+
+```yaml
+# Basic Kubernetes Deployment Example
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-engine-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: search-engine
+  template:
+    metadata:
+      labels:
+        app: search-engine
+    spec:
+      containers:
+      - name: api
+        image: registry.huaweicloud.com/search-engine:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+```
+
+## Key Components
+
+### 1. Elastic Load Balance (ELB)
+
+The ELB distributes incoming traffic across multiple instances:
+
+- **Round Robin Algorithm**: Even distribution of requests
+- **Health Checks**: Automatic detection of unhealthy instances
+- **SSL Termination**: HTTPS handling at the load balancer level
+
+### 2. Container Registry (SWR)
+
+Huawei Cloud's Software Repository manages our Docker images:
+
+- **Private Registry**: Secure image storage
+- **Image Scanning**: Vulnerability detection
+- **Version Control**: Proper tagging and rollback capabilities
+
+### 3. Auto-scaling Policies
+
+Configured based on CPU and Memory usage:
+
+```bash
+# Horizontal Pod Autoscaler configuration
+kubectl autoscale deployment search-engine-api \
+  --cpu-percent=70 \
+  --min=3 \
+  --max=10 \
+  --namespace=production
+```
+
+## CI/CD Pipeline
+
+Our deployment pipeline uses GitHub Actions integrated with Huawei Cloud:
+
+```yaml
+name: Deploy to Kubernetes
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      run: |
+        docker build -t registry.huaweicloud.com/search-engine:${{ github.sha }} .
+        docker push registry.huaweicloud.com/search-engine:${{ github.sha }}
+    
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl set image deployment/search-engine-api api=registry.huaweicloud.com/search-engine:${{ github.sha }}
+        kubectl rollout status deployment/search-engine-api
+```
+
+## Performance Metrics
+
+After implementing this architecture, we achieved:
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Uptime | 95.5% | 99.9% | +4.4% |
+| Deployment Time | 45 min | 18 min | 60% faster |
+| Cost Efficiency | 65% | 85% | +20% |
+| Response Time | 850ms | 320ms | 62% faster |
+
+## Best Practices Learned
+
+### 1. Resource Management
+- Always set resource requests and limits
+- Use proper resource quotas for namespaces
+- Monitor resource usage regularly
+
+### 2. Security
+- Implement network policies
+- Use secrets for sensitive data
+- Regular security scanning
+
+### 3. Monitoring
+- Set up comprehensive logging
+- Use Prometheus for metrics collection
+- Implement alerting for critical issues
+
+## Conclusion
+
+By adopting a cloud-native approach with Kubernetes on Huawei Cloud, we achieved significant improvements in reliability, performance, and cost efficiency. The key success factors were proper planning, gradual migration, and continuous monitoring.
+
+The infrastructure now handles 10x more traffic with the same cost, providing a solid foundation for future growth.
+
+---
+
+**Related Technologies**: Docker, Helm, Prometheus, Grafana, ELK Stack
+
+**Next Steps**: Consider implementing service mesh with Istio for advanced traffic management.

@@ -9,6 +9,24 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: "Kemal Adlığ | Mobile & DevOps Engineer",
   description: "Personal blog and portfolio of Kemal Adlığ, a Mobile Application Developer and DevOps Engineer based in Istanbul.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev',
+    title: "Kemal Adlığ | Mobile & DevOps Engineer",
+    description: "Personal blog and portfolio of Kemal Adlığ, a Mobile Application Developer and DevOps Engineer based in Istanbul.",
+    siteName: "Kemal Adlığ",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kemal Adlığ | Mobile & DevOps Engineer",
+    description: "Personal blog and portfolio of Kemal Adlığ, a Mobile Application Developer and DevOps Engineer based in Istanbul.",
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev'}/rss.xml`,
+    },
+  },
 };
 
 export default function RootLayout({

@@ -1,0 +1,446 @@
+---
+title: "Mastering TypeScript Generics"
+date: "2024-02-10"
+excerpt: "A comprehensive guide to understanding and using generics in TypeScript for building reusable components."
+tags: ["TypeScript", "Web Development", "Programming"]
+readingTime: 10
+featured: false
+---
+
+# Mastering TypeScript Generics
+
+TypeScript generics are one of the most powerful features for building reusable, type-safe code. In this comprehensive guide, we'll explore generics from basic concepts to advanced patterns.
+
+## What Are Generics?
+
+Generics provide a way to create components that work over a variety of types rather than a single one. They allow us to write flexible, reusable functions and classes while maintaining type safety.
+
+```typescript
+// Without generics - less flexible
+function identity(arg: number): number {
+  return arg;
+}
+
+// With generics - works with any type
+function identity<T>(arg: T): T {
+  return arg;
+}
+```
+
+## Basic Generic Patterns
+
+### 1. Generic Functions
+
+```typescript
+// Generic function with type inference
+function firstElement<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+// TypeScript infers the type
+const numbers = [1, 2, 3];
+const firstNum = firstElement(numbers); // Type: number
+
+const strings = ["a", "b", "c"];
+const firstStr = firstElement(strings); // Type: string
+```
+
+### 2. Generic Interfaces
+
+```typescript
+interface Collection<T> {
+  items: T[];
+  add(item: T): void;
+  remove(item: T): boolean;
+  find(predicate: (item: T) => boolean): T | undefined;
+}
+
+class NumberCollection implements Collection<number> {
+  items: number[] = [];
+  
+  add(item: number): void {
+    this.items.push(item);
+  }
+  
+  remove(item: number): boolean {
+    const index = this.items.indexOf(item);
+    if (index > -1) {
+      this.items.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+  
+  find(predicate: (item: number) => boolean): number | undefined {
+    return this.items.find(predicate);
+  }
+}
+```
+
+### 3. Generic Classes
+
+```typescript
+class Box<T> {
+  private content: T;
+  
+  constructor(content: T) {
+    this.content = content;
+  }
+  
+  getValue(): T {
+    return this.content;
+  }
+  
+  setValue(content: T): void {
+    this.content = content;
+  }
+}
+
+const stringBox = new Box("Hello");
+const numberBox = new Box(42);
+```
+
+## Generic Constraints
+
+Sometimes you want to limit the types that can be used with generics.
+
+### 1. Basic Constraints
+
+```typescript
+interface Lengthwise {
+  length: number;
+}
+
+function logLength<T extends Lengthwise>(arg: T): void {
+  console.log(arg.length); // Now we know T has a length property
+}
+
+logLength("hello"); // Works - strings have length
+logLength([1, 2, 3]); // Works - arrays have length
+// logLength(42); // Error - numbers don't have length
+```
+
+### 2. Keyof Constraints
+
+```typescript
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const person = { name: "John", age: 30, city: "New York" };
+
+const name = getProperty(person, "name"); // Type: string
+const age = getProperty(person, "age"); // Type: number
+// const invalid = getProperty(person, "invalid"); // Error
+```
+
+### 3. Constructor Constraints
+
+```typescript
+interface Constructor<T> {
+  new(...args: any[]): T;
+}
+
+function createInstance<T>(ctor: Constructor<T>, ...args: any[]): T {
+  return new ctor(...args);
+}
+
+class User {
+  constructor(public name: string, public age: number) {}
+}
+
+const user = createInstance(User, "Alice", 25); // Type: User
+```
+
+## Advanced Generic Patterns
+
+### 1. Conditional Types
+
+```typescript
+// Basic conditional type
+type IsString<T> = T extends string ? true : false;
+
+type Test1 = IsString<string>; // true
+type Test2 = IsString<number>; // false
+
+// More complex conditional type
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+type Test3 = NonNullable<string | null>; // string
+type Test4 = NonNullable<number | undefined>; // number
+```
+
+### 2. Mapped Types with Generics
+
+```typescript
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+// Custom mapped type
+type StringifyProperties<T> = {
+  [P in keyof T]: string;
+};
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+type StringifiedUser = StringifyProperties<User>;
+// { id: string; name: string; email: string; }
+```
+
+### 3. Template Literal Types
+
+```typescript
+type EventName<T extends string> = `on${Capitalize<T>}`;
+
+type UserEvents = EventName<"click" | "hover">; // "onClick" | "onHover"
+
+// Advanced template literal type
+type Getters<T> = {
+  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
+};
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+type PersonGetters = Getters<Person>;
+// { getName: () => string; getAge: () => number; }
+```
+
+## Real-World Examples
+
+### 1. API Response Wrapper
+
+```typescript
+interface ApiResponse<T> {
+  data: T;
+  status: number;
+  message: string;
+  timestamp: number;
+}
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  authorId: string;
+}
+
+// Type-safe API functions
+async function fetchUser(id: string): Promise<ApiResponse<User>> {
+  const response = await fetch(`/api/users/${id}`);
+  return response.json();
+}
+
+async function fetchPost(id: string): Promise<ApiResponse<Post>> {
+  const response = await fetch(`/api/posts/${id}`);
+  return response.json();
+}
+```
+
+### 2. Repository Pattern
+
+```typescript
+interface Repository<T, ID = string> {
+  findById(id: ID): Promise<T | null>;
+  findAll(): Promise<T[]>;
+  create(entity: Omit<T, 'id'>): Promise<T>;
+  update(id: ID, updates: Partial<T>): Promise<T>;
+  delete(id: ID): Promise<boolean>;
+}
+
+interface BaseEntity {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+class UserRepository implements Repository<User, string> {
+  async findById(id: string): Promise<User | null> {
+    // Implementation
+    return null;
+  }
+  
+  async findAll(): Promise<User[]> {
+    // Implementation
+    return [];
+  }
+  
+  async create(entity: Omit<User, 'id'>): Promise<User> {
+    // Implementation
+    return {} as User;
+  }
+  
+  async update(id: string, updates: Partial<User>): Promise<User> {
+    // Implementation
+    return {} as User;
+  }
+  
+  async delete(id: string): Promise<boolean> {
+    // Implementation
+    return false;
+  }
+}
+```
+
+### 3. State Management
+
+```typescript
+interface State<T> {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+}
+
+interface Action<T> {
+  type: 'FETCH_START' | 'FETCH_SUCCESS' | 'FETCH_ERROR';
+  payload?: T;
+  error?: string;
+}
+
+function createReducer<T>() {
+  return (state: State<T>, action: Action<T>): State<T> => {
+    switch (action.type) {
+      case 'FETCH_START':
+        return { ...state, loading: true, error: null };
+      case 'FETCH_SUCCESS':
+        return { ...state, loading: false, data: action.payload ?? null };
+      case 'FETCH_ERROR':
+        return { ...state, loading: false, error: action.error ?? null };
+      default:
+        return state;
+    }
+  };
+}
+
+// Usage
+type UserState = State<User>;
+const userReducer = createReducer<User>();
+```
+
+## Utility Types
+
+TypeScript provides several built-in utility types that use generics:
+
+```typescript
+// Partial<T> - Makes all properties optional
+type PartialUser = Partial<User>;
+
+// Required<T> - Makes all properties required
+type RequiredUser = Required<Partial<User>>;
+
+// Pick<T, K> - Select specific properties
+type UserBasicInfo = Pick<User, 'id' | 'name'>;
+
+// Omit<T, K> - Remove specific properties
+type UserWithoutEmail = Omit<User, 'email'>;
+
+// Record<K, T> - Create object type with keys K and values T
+type UserRecord = Record<string, User>;
+
+// Extract<T, U> - Extract types from T that are assignable to U
+type StringKeys = Extract<keyof User, string>;
+
+// Exclude<T, U> - Exclude types from T that are assignable to U
+type NonStringKeys = Exclude<keyof User, string>;
+```
+
+## Best Practices
+
+### 1. Use Descriptive Type Parameters
+
+```typescript
+// ❌ Poor naming
+function func<T, U>(a: T, b: U): U {
+  return b;
+}
+
+// ✅ Descriptive naming
+function transform<Input, Output>(input: Input, transformer: (value: Input) => Output): Output {
+  return transformer(input);
+}
+```
+
+### 2. Provide Default Types When Appropriate
+
+```typescript
+interface Config<T = string> {
+  value: T;
+  label: string;
+}
+
+const stringConfig: Config = { value: "hello", label: "Greeting" };
+const numberConfig: Config<number> = { value: 42, label: "Answer" };
+```
+
+### 3. Use Constraints to Ensure Type Safety
+
+```typescript
+// ❌ Too generic
+function clone<T>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+// ✅ Properly constrained
+function clone<T extends object>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj));
+}
+```
+
+## Common Pitfalls
+
+### 1. Overusing Generics
+
+```typescript
+// ❌ Unnecessary complexity
+function add<T extends number>(a: T, b: T): T {
+  return (a + b) as T;
+}
+
+// ✅ Simple and clear
+function add(a: number, b: number): number {
+  return a + b;
+}
+```
+
+### 2. Forgetting Type Inference
+
+```typescript
+// ❌ Verbose
+const result: string = identity<string>("hello");
+
+// ✅ Let TypeScript infer
+const result = identity("hello"); // Type inferred as string
+```
+
+## Conclusion
+
+Generics are a fundamental TypeScript feature that enables:
+
+- **Code Reusability**: Write once, use with many types
+- **Type Safety**: Catch errors at compile time
+- **Flexibility**: Create adaptable components and APIs
+
+Mastering generics takes practice, but the investment pays off in more maintainable and type-safe code. Start with simple use cases and gradually incorporate more advanced patterns as you become comfortable.
+
+---
+
+**Further Reading**: [TypeScript Generics Documentation](https://www.typescriptlang.org/docs/handbook/2/generics.html)
+
+**Practice**: Try implementing generic data structures like Stack, Queue, or Tree to solidify your understanding.
