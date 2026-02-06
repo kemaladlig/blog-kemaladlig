@@ -10,15 +10,15 @@ export default function Hero() {
     return (
         <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-transparent antialiased bg-grid-white/[0.02] relative overflow-hidden">
             <Spotlight
-                className="-top-40 left-0 md:left-60 md:-top-20"
+                className="hidden md:block -top-40 left-0 md:left-60 md:-top-20"
                 fill="#fbbf24" // Yellow
             />
             <Spotlight
-                className="top-10 left-full h-[80vh] w-[50vw] md:left-80"
+                className="hidden md:block top-10 left-full h-[80vh] w-[50vw] md:left-80"
                 fill="#3b82f6" // Blue
             />
             <Spotlight
-                className="top-28 left-80 h-[80vh] w-[50vw]"
+                className="hidden md:block top-28 left-80 h-[80vh] w-[50vw]"
                 fill="#60a5fa" // Lighter Blue
             />
             <div className="p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
