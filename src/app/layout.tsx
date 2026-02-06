@@ -67,7 +67,7 @@ export default function RootLayout({
         >
           <Navbar />
           {/* Added relative positioning for z-index layering with global backgrounds if needed */}
-          <main className="flex-grow pt-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-0">
+          <main className="flex-grow pt-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full relative z-0">
             {children}
           </main>
           <footer className="py-8 text-center text-sm text-muted-foreground border-t border-border/40 mt-20 backdrop-blur-sm">
