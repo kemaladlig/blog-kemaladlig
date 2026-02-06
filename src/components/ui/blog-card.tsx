@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { MagicCard } from "@/components/ui/magic-card";
+import { Badge } from "@/components/ui/badge";
 
 interface BlogCardProps {
   title: string;
@@ -9,6 +10,7 @@ interface BlogCardProps {
   slug: string;
   tags?: string[];
   className?: string;
+  gradientColor?: string;
 }
 
 export default function BlogCard({
@@ -18,43 +20,46 @@ export default function BlogCard({
   slug,
   tags = [],
   className,
+  gradientColor = "#007AFF"
 }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${slug}`}
-      className={cn(
-        "group block p-6 h-full bg-gray-50 dark:bg-zinc-900 border border-transparent hover:border-accent/50 rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden",
-        className
-      )}
+      className="block h-full"
     >
-      <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-2 group-hover:translate-x-0">
-        <ArrowUpRight className="h-5 w-5 text-accent" />
-      </div>
+      <MagicCard
+        className={className}
+        gradientColor={gradientColor}
+      >
+        <div className="p-6 h-full flex flex-col justify-between group">
+          <div>
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex gap-2 flex-wrap">
+                {tags.map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+              <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
+            </div>
 
-      <div className="flex flex-col h-full justify-between">
-        <div>
-          <div className="flex gap-2 mb-4 flex-wrap">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-accent/10 text-accent"
-              >
-                {tag}
-              </span>
-            ))}
+            <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+              {title}
+            </h3>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+              {excerpt}
+            </p>
           </div>
-          <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
-            {title}
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-            {excerpt}
-          </p>
-        </div>
 
-        <time className="text-xs text-gray-400 font-medium font-mono">
-          {date}
-        </time>
-      </div>
+          <div className="flex items-center gap-2">
+            <div className="h-1 w-1 rounded-full bg-primary" />
+            <time className="text-xs text-muted-foreground font-medium font-mono">
+              {date}
+            </time>
+          </div>
+        </div>
+      </MagicCard>
     </Link>
   );
 }

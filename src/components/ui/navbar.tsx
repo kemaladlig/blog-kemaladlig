@@ -5,11 +5,14 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   // Prevent hydration mismatch
   useEffect(() => {
@@ -26,71 +29,88 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+      {/* Floating Island Wrapper for Desktop - visual trick, creates a centered glass strip */}
+      <div className="mx-auto max-w-5xl mt-6 hidden md:block">
+        <div className="glass rounded-full px-6 py-3 flex items-center justify-between shadow-lg shadow-black/5 dark:shadow-white/5">
           {/* Logo */}
-          <Link href="/" className="font-bold text-xl tracking-tight">
-            KEMAL<span className="text-accent">.DEV</span>
+          <Link href="/" className="font-bold text-xl tracking-tight flex items-center group font-mono">
+            <span className="group-hover:text-foreground transition-colors">kemal</span>
+            <span className="text-primary group-hover:text-primary/80 transition-colors">.dev</span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-foreground/80 hover:text-accent transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <nav className="flex items-center gap-6">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors relative",
+                    isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-indicator"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              )
+            })}
+
+            <div className="h-4 w-[1px] bg-border mx-2" />
 
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-accent/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+              className="p-1.5 rounded-full hover:bg-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
               aria-label="Toggle theme"
             >
               {mounted && theme === "dark" ? (
-                <Sun className="h-5 w-5" />
+                <Sun className="h-4 w-4" />
               ) : (
-                <Moon className="h-5 w-5" />
+                <Moon className="h-4 w-4" />
               )}
             </button>
           </nav>
+        </div>
+      </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-4">
+      {/* Mobile Nav - Standard Full Width */}
+      <div className="md:hidden glass border-b border-border">
+        <div className="px-4 h-16 flex items-center justify-between">
+          <Link href="/" className="font-bold text-lg tracking-tight font-mono">
+            kemal<span className="text-primary">.dev</span>
+          </Link>
+
+          <div className="flex items-center gap-4">
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-accent/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
-              aria-label="Toggle theme"
+              className="p-2 rounded-full hover:bg-secondary transition-colors"
             >
-              {mounted && theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
+              {mounted && theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <button
-              onClick={toggleMenu}
-              className="p-2 rounded-md hover:bg-accent/10 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-            >
+            <button onClick={toggleMenu} className="p-2 rounded-md hover:bg-secondary transition-colors">
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-background"
+            className="md:hidden border-b border-border bg-background/95 backdrop-blur-xl overflow-hidden"
           >
             <div className="px-4 py-4 space-y-3">
               {navLinks.map((link) => (
@@ -98,7 +118,12 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-accent/5 hover:text-accent transition-colors"
+                  className={cn(
+                    "block px-3 py-2 rounded-md text-base font-medium transition-colors",
+                    pathname === link.href
+                      ? "bg-primary/10 text-primary"
+                      : "hover:bg-secondary hover:text-foreground text-muted-foreground"
+                  )}
                 >
                   {link.name}
                 </Link>

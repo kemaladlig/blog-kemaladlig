@@ -33,7 +33,6 @@ export default async function BlogPage() {
                 <BlogCard
                   key={post.slug}
                   {...post}
-                  className="border-accent/20 bg-accent/5"
                 />
               ))}
           </div>
