@@ -11,15 +11,15 @@ export default function Hero() {
         <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center bg-transparent antialiased bg-grid-white/[0.02] relative overflow-hidden">
             <Spotlight
                 className="hidden md:block -top-40 left-0 md:left-60 md:-top-20"
-                fill="#fbbf24" // Yellow
+                fill="#2563eb" // Blue 600
             />
             <Spotlight
                 className="hidden md:block top-10 left-full h-[80vh] w-[50vw] md:left-80"
-                fill="#3b82f6" // Blue
+                fill="#3b82f6" // Blue 500
             />
             <Spotlight
                 className="hidden md:block top-28 left-80 h-[80vh] w-[50vw]"
-                fill="#60a5fa" // Lighter Blue
+                fill="#60a5fa" // Blue 400
             />
             <div className="p-4 max-w-7xl  mx-auto relative z-10  w-full pt-20 md:pt-0">
                 <div className="flex flex-col items-center justify-center text-center animate-fade-in-up">
