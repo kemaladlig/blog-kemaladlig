@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+
 import { Spotlight } from "@/components/ui/spotlight";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
