@@ -29,13 +29,15 @@ export default function BentoGrid() {
             Kemal Adlığ
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-md">
-            Mobile Application Developer & DevOps Engineer bridging the gap between mobile UX and scalable cloud infrastructure.
+            Mobile developer building cloud-powered applications with React Native and DevOps. Specializing in scalable mobile apps, real-time systems, and automated infrastructure from development to deployment.
           </p>
         </div>
         <div className="z-10 flex flex-wrap gap-2 mt-4">
            <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-zinc-700 text-sm">React Native</span>
-           <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-zinc-700 text-sm">Kotlin</span>
+           <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-zinc-700 text-sm">Flutter</span>
+           <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-zinc-700 text-sm">Node.js</span>
            <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-zinc-700 text-sm">Kubernetes</span>
+           <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-zinc-700 text-sm">Docker</span>
         </div>
 
         {/* Abstract decoration */}

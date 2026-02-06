@@ -88,7 +88,7 @@ export default function AboutPage() {
         <h1 className="text-4xl font-bold tracking-tight">About Me</h1>
         <div className="prose dark:prose-invert max-w-none text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           <p>
-            Hi, I&apos;m Kemal Adlığ. I am a Versatile Software Engineer bridging the gap between Mobile Application Development and Cloud Operations (DevOps).
+            I'm a full-stack mobile developer specializing in React Native and TypeScript, passionate about building scalable applications with cloud infrastructure, real-time features, and premium monetization systems. Based in Istanbul, I transform complex technical challenges into exceptional user experiences.
           </p>
           <p>
             With a proven track record of designing, building, and publishing cross-platform mobile apps (React Native/Kotlin), I also manage scalable cloud infrastructure.

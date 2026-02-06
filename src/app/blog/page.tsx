@@ -4,7 +4,7 @@ import BlogSearchClient from "@/components/blog/blog-search-client";
 
 export const metadata = {
   title: "Blog | Kemal Adlığ",
-  description: "Thoughts on Mobile Development, DevOps, and Cloud Architecture.",
+  description: "Technical insights on React Native development, TypeScript applications, cloud infrastructure, and building scalable mobile applications with real-time features.",
 };
 
 export default async function BlogPage() {

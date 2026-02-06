@@ -7,20 +7,20 @@ import Navbar from "@/components/ui/navbar";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Kemal Adlığ | Mobile & DevOps Engineer",
-  description: "Personal blog and portfolio of Kemal Adlığ, a Mobile Application Developer and DevOps Engineer based in Istanbul.",
+  title: "Kemal Adlığ | Mobile Developer",
+  description: "Mobile developer building cloud-powered applications with React Native and DevOps. Specializing in scalable mobile apps, real-time systems, and automated infrastructure from development to deployment.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev',
-    title: "Kemal Adlığ | Mobile & DevOps Engineer",
-    description: "Personal blog and portfolio of Kemal Adlığ, a Mobile Application Developer and DevOps Engineer based in Istanbul.",
+    title: "Kemal Adlığ | Mobile Developer",
+    description: "Mobile developer building cloud-powered applications with React Native and DevOps. Specializing in scalable mobile apps, real-time systems, and automated infrastructure from development to deployment.",
     siteName: "Kemal Adlığ",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kemal Adlığ | Mobile & DevOps Engineer",
-    description: "Personal blog and portfolio of Kemal Adlığ, a Mobile Application Developer and DevOps Engineer based in Istanbul.",
+    title: "Kemal Adlığ | Mobile Developer",
+    description: "Mobile developer building cloud-powered applications with React Native and DevOps. Specializing in scalable mobile apps, real-time systems, and automated infrastructure from development to deployment.",
   },
   alternates: {
     types: {
