@@ -1,23 +1,36 @@
 "use client";
 
-import { Github, Linkedin, MapPin, Mail, FileText, Smartphone, Server, Database, Cloud, ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, MapPin, Mail, FileText, Smartphone, Server, Database, Code2, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { MagicCard } from "@/components/ui/magic-card";
 import { Badge } from "@/components/ui/badge";
 import { TechBadge } from "@/components/ui/tech-badge";
 
+// Mapbox public (pk.) token — URL-restricted, supplied via NEXT_PUBLIC_MAPBOX_TOKEN.
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 
+interface LatestPost {
+  title: string;
+  excerpt: string;
+  date: string;
+  slug: string;
+  tags: string[];
+}
 
-// Fallback post data for client component
-const LATEST_POST = {
-  title: "Next-Gen Mobile DevOps Architecture",
-  excerpt: "Orchestrating React Native builds with Kubernetes and modern CI/CD pipelines.",
-  date: "Feb 02, 2025",
-  slug: "mobile-devops-2025",
-  tags: ["DevOps", "Mobile"],
-};
+interface BentoGridProps {
+  latestPost?: LatestPost | null;
+}
 
-export default function BentoGrid() {
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// Fixed formatting: toLocaleDateString can differ between server and client render.
+function formatPostDate(iso: string) {
+  const [year, month, day] = iso.split("-");
+  const name = MONTHS[Number(month) - 1];
+  return name ? `${name} ${day}, ${year}` : iso;
+}
+
+export default function BentoGrid({ latestPost }: BentoGridProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[180px]">
 
@@ -35,12 +48,12 @@ export default function BentoGrid() {
             Kemal Adlığ
           </h1>
           <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
-            Mobile developer & Cloud Architect. Building scalable, real-time systems with <span className="text-foreground font-semibold">React Native</span> and <span className="text-foreground font-semibold">DevOps</span> excellence.
+            Product engineer across <span className="text-foreground font-semibold">mobile</span>, <span className="text-foreground font-semibold">web</span> and <span className="text-foreground font-semibold">cloud</span>. I write the specs and context maps agents build from, then review every diff before it ships.
           </p>
         </div>
 
         <div className="z-10 flex flex-wrap gap-2 mt-4">
-          {["React Native", "Next.js", "Node.js", "Kubernetes", "AWS"].map((tech) => (
+          {["TypeScript", "React Native", "Next.js", "Supabase", "MCP"].map((tech) => (
             <Badge key={tech} variant="secondary" className="px-3 py-1 font-medium backdrop-blur-sm">
               {tech}
             </Badge>
@@ -55,7 +68,10 @@ export default function BentoGrid() {
       <MagicCard className="md:col-span-1 row-span-1 relative group" gradientColor="#F59E0B">
         <div className="absolute inset-0 z-0 transition-opacity duration-500 opacity-60 group-hover:opacity-40">
           {/* Map Placeholder Image or Embed */}
-          <div className="w-full h-full bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/28.9784,41.0082,11,0/400x400?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw')] bg-cover bg-center grayscale" />
+          <div
+            className="w-full h-full bg-cover bg-center grayscale"
+            style={{ backgroundImage: `url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/28.9784,41.0082,11,0/400x400?access_token=${MAPBOX_TOKEN}')` }}
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
 
@@ -93,7 +109,7 @@ export default function BentoGrid() {
         </Link>
       </MagicCard>
 
-      {/* 4. Tech Stack "Grid" - Focus on DevOps/Cloud - Vertical Stack */}
+      {/* 4. Core Stack */}
       <MagicCard className="md:col-span-1 row-span-1 p-4 flex flex-col justify-between relative overflow-hidden" gradientColor="#10b981">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-20" />
 
@@ -104,40 +120,42 @@ export default function BentoGrid() {
 
         <div className="grid grid-cols-2 gap-2 w-full place-items-center">
           <TechBadge
+            icon={<Code2 className="h-4 w-4" />}
+            label="TypeScript"
+          />
+          <TechBadge
             icon={<Smartphone className="h-4 w-4" />}
             label="React Native"
           />
           <TechBadge
-            icon={<Cloud className="h-4 w-4" />}
-            label="AWS / Cloud"
-          />
-          <TechBadge
             icon={<Server className="h-4 w-4" />}
-            label="Node.js"
+            label="Node.js / Bun"
           />
           <TechBadge
             icon={<Database className="h-4 w-4" />}
-            label="PostgreSQL"
+            label="Supabase"
           />
         </div>
       </MagicCard>
 
       {/* 5. Latest Post */}
-      <div className="md:col-span-2 row-span-1 h-full">
-        <MagicCard className="h-full p-0 overflow-hidden group" gradientColor="#ec4899">
-          <Link href={`/blog/${LATEST_POST.slug}`} className="block h-full p-6 relative z-10">
-            <div className="flex justify-between items-start mb-2">
-              <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounde-full">{LATEST_POST.tags[0]}</span>
-              <span className="text-xs text-muted-foreground">{LATEST_POST.date}</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{LATEST_POST.title}</h3>
-            <p className="text-sm text-muted-foreground line-clamp-2">{LATEST_POST.excerpt}</p>
-            <div className="absolute bottom-6 right-6">
-              <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-          </Link>
-        </MagicCard>
-      </div>
+      {latestPost && (
+        <div className="md:col-span-2 row-span-1 h-full">
+          <MagicCard className="h-full p-0 overflow-hidden group" gradientColor="#ec4899">
+            <Link href={`/blog/${latestPost.slug}`} className="block h-full p-6 relative z-10">
+              <div className="flex justify-between items-start mb-2">
+                <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded-full">{latestPost.tags[0]}</span>
+                <span className="text-xs text-muted-foreground">{formatPostDate(latestPost.date)}</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{latestPost.title}</h3>
+              <p className="text-sm text-muted-foreground line-clamp-2">{latestPost.excerpt}</p>
+              <div className="absolute bottom-6 right-6">
+                <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </div>
+            </Link>
+          </MagicCard>
+        </div>
+      )}
 
       {/* 6. CV Download */}
       <MagicCard className="md:col-span-1 row-span-1 relative group cursor-pointer" gradientColor="#ef4444">
@@ -146,7 +164,7 @@ export default function BentoGrid() {
             <FileText className="h-6 w-6 text-foreground group-hover:text-primary" />
           </div>
           <span className="font-semibold text-sm">Download CV</span>
-          <span className="text-xs text-muted-foreground mt-1">PDF (1.2 MB)</span>
+          <span className="text-xs text-muted-foreground mt-1">PDF · 2 pages</span>
         </a>
       </MagicCard>
 

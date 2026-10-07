@@ -1,33 +1,44 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Briefcase, GraduationCap, Award, FileBadge } from "lucide-react";
 
 export default function AboutPage() {
+  const reduceMotion = useReducedMotion();
+
   const experiences = [
     {
-      title: "Freelance Software Engineer",
-      company: "Self-Employed",
+      title: "Independent Product Engineer & Consultant",
+      company: "Self-employed · Remote",
       period: "Jan 2024 - Present",
-      description:
-        "Successfully delivered and maintained full-stack and mobile software solutions. Managed the complete product lifecycle from requirement analysis to deployment.",
-      skills: ["React Native", "Expo", "Firebase", "React.js", "Node.js", "Docker", "Kubernetes"],
+      points: [
+        "Designed, built and still operate several production products alone: a published cross-platform mobile app on the App Store and Google Play, an AI document-processing SaaS for accounting firms, and a Chrome extension.",
+        "Run parallel coding agents from versioned spec files (AGENTS.md and PROJECT_MAP.md context maps), and review every diff before it merges.",
+        "Built code-rag, a Model Context Protocol server for local semantic code search, with no npm dependencies and its own evaluation harness: 94% recall@5 and MRR 0.83 across a 16-question benchmark.",
+        "Handle the whole release per product, from schema and authorization rules through test suites and CI to store review.",
+      ],
+      skills: ["TypeScript", "React Native", "Next.js", "Supabase", "MCP", "Docker"],
     },
     {
       title: "Software Engineer Intern",
-      company: "Huawei R&D Center",
+      company: "Huawei R&D Center · Istanbul, Türkiye",
       period: "Nov 2022 - Sep 2023",
-      description:
-        "Integrated Huawei Mobile Services (HMS) kits into various applications. Built and optimized server-side web applications using Node.js and MongoDB. Designed and tested RESTful APIs.",
-      skills: ["HMS Core", "Node.js", "MongoDB", "Kotlin", "RESTful APIs"],
+      points: [
+        "Developed and optimized native Android apps in Kotlin, with attention to startup time, memory and battery use.",
+        "Integrated Huawei Mobile Services kits (Location, Push, Analytics, ML Kit) into production applications.",
+        "Built Node.js and MongoDB services that processed 50,000+ rows for an internal analytics tool, and designed and tested the REST APIs behind them.",
+      ],
+      skills: ["Kotlin", "HMS Core", "Node.js", "MongoDB", "REST APIs"],
     },
     {
       title: "Mobile Developer Intern",
-      company: "Birfen Elektrik Elektronik",
+      company: "Birfen Elektrik Elektronik · Istanbul, Türkiye",
       period: "Jul 2022 - Sep 2022",
-      description:
-        "Developed a cross-platform Flutter application for real-time communication with robotic systems. Implemented remote control protocols (TCP/IP, Bluetooth) and designed a responsive UI.",
-      skills: ["Flutter", "Dart", "TCP/IP", "Bluetooth", "UI Design"],
+      points: [
+        "Built a mobile controller application bridging its UI to a robot's ROS backend over real-time protocols (TCP/IP, Bluetooth).",
+        "Designed the responsive interface used to drive the robotic system remotely.",
+      ],
+      skills: ["Flutter", "Dart", "TCP/IP", "Bluetooth"],
     },
   ];
 
@@ -36,66 +47,105 @@ export default function AboutPage() {
       degree: "B.S. Computer Engineering",
       school: "Yalova University",
       period: "2020 - 2024",
-      description: "Istanbul, Turkey",
+      description: "Yalova, Türkiye",
     },
   ];
 
   const certifications = [
+    { name: "Huawei Cloud HCCDP - Solution Architecture", issuer: "Huawei Cloud", date: "Aug 2025" },
+    { name: "Huawei Cloud HCCDA - Cloud Native", issuer: "Huawei Cloud", date: "Aug 2025" },
+    { name: "Huawei Cloud HCCDA - Tech Essentials", issuer: "Huawei Cloud", date: "Jul 2025" },
+    { name: "Huawei Cloud DevOps Bootcamp", issuer: "Huawei", date: "2025" },
+    { name: "3rd Place, Huawei Coding Marathon", issuer: "Huawei · Mobile Services category, nationwide", date: "2022" },
     {
-      name: "Huawei Cloud HCCDP - Solution Architecture",
-      issuer: "Huawei Cloud",
-      date: "Aug 2025",
-    },
-    {
-      name: "Huawei Cloud HCCDA - Cloud Native",
-      issuer: "Huawei Cloud",
-      date: "Aug 2025",
-    },
-    {
-      name: "Huawei Cloud HCCDA - Tech Essentials",
-      issuer: "Huawei Cloud",
-      date: "Jul 2025",
-    },
-    {
-      name: "Huawei Cloud DevOps Bootcamp 2025",
-      issuer: "Huawei",
-      date: "2025",
+      name: "Technical Author, Huawei Developers Blog",
+      issuer: 'Medium · "Lambda Expressions and Higher-Order Functions in Kotlin"',
+      date: "",
     },
   ];
 
-  const skills = [
-    "Kotlin (Jetpack Compose)",
-    "React Native (Expo)",
-    "Flutter (Dart)",
-    "Node.js & Express",
-    "Docker & Kubernetes",
-    "CI/CD Pipelines",
-    "Huawei Cloud (CCE, SWR, ELB)",
-    "MongoDB & Firebase",
-    "Linux/Bash",
-    "Git & Postman",
+  const skillGroups = [
+    {
+      label: "AI & Agents",
+      items: [
+        "Multi-agent orchestration",
+        "Context engineering",
+        "MCP server development",
+        "Evaluation harnesses",
+        "RAG & semantic search",
+        "LLM integration",
+      ],
+    },
+    {
+      label: "Languages",
+      items: ["TypeScript", "JavaScript", "Python", "Kotlin", "Dart", "SQL"],
+    },
+    {
+      label: "Frontend & Mobile",
+      items: [
+        "React 19",
+        "React Native (Expo)",
+        "Next.js",
+        "Vite",
+        "Tailwind CSS v4",
+        "Zustand",
+        "Jetpack Compose",
+        "Capacitor",
+      ],
+    },
+    {
+      label: "Backend & Data",
+      items: [
+        "Node.js",
+        "Bun",
+        "PostgreSQL",
+        "Supabase (RLS, Edge Functions)",
+        "Firebase",
+        "SQLite / Drizzle",
+        "REST",
+        "WebSocket",
+      ],
+    },
+    {
+      label: "Desktop & Systems",
+      items: ["PyQt6", "ONNX Runtime", "NumPy", "Win32 interop", "Multithreaded workers"],
+    },
+    {
+      label: "Cloud & DevOps",
+      items: ["Docker", "Kubernetes (GKE / CCE)", "GitHub Actions", "Nginx Ingress", "Terraform", "Vercel"],
+    },
+    {
+      label: "Testing",
+      items: ["Vitest", "Jest", "Playwright", "Node test runner", "CI quality gates"],
+    },
   ];
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
+      animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="max-w-4xl mx-auto space-y-16 py-8"
     >
       {/* Bio Section */}
       <section className="space-y-6">
         <h1 className="text-4xl font-bold tracking-tight">About Me</h1>
-        <div className="prose dark:prose-invert max-w-none text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+        <div className="space-y-4 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           <p>
-            I&apos;m a full-stack mobile developer specializing in React Native and TypeScript, passionate about building scalable applications with cloud infrastructure, real-time features, and premium monetization systems. Based in Istanbul, I transform complex technical challenges into exceptional user experiences.
+            I&apos;m a product engineer who ships production software alone, by orchestrating AI agent
+            workflows. Recent work spans a published cross-platform mobile app, an AI
+            document-processing SaaS for accounting firms, an MCP server for semantic code search, and
+            a dozen smaller products across web, mobile, desktop and real-time multiplayer.
           </p>
           <p>
-            With a proven track record of designing, building, and publishing cross-platform mobile apps (React Native/Kotlin), I also manage scalable cloud infrastructure.
-            I specialize in container orchestration with Kubernetes, automating deployment workflows via CI/CD pipelines, and optimizing backend performance to deliver robust, end-to-end software solutions.
+            Most days that means writing the specs and context maps agents build from, wiring MCP tools
+            into the editor, and running evaluation harnesses against LLM features before they ship.
+            Several products sit behind CI running over 450 automated tests.
           </p>
           <p>
-            One of my highlights includes winning 3rd Place in the Huawei Coding Marathon 2022 (Mobile Services Category) by developing a Kotlin-based language learning app using ML Kits.
+            Before working independently I spent two internship years at Huawei R&amp;D and Birfen
+            Elektrik Elektronik, building native Android features, HMS integrations and a robot control
+            app over TCP/IP and Bluetooth.
           </p>
         </div>
       </section>
@@ -107,8 +157,8 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold tracking-tight">Experience</h2>
         </div>
         <div className="border-l-2 border-gray-200 dark:border-zinc-800 ml-3 space-y-12">
-          {experiences.map((exp, index) => (
-            <div key={index} className="relative pl-8">
+          {experiences.map((exp) => (
+            <div key={exp.title} className="relative pl-8">
               <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-background border-2 border-accent" />
               <div className="space-y-2">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -116,7 +166,11 @@ export default function AboutPage() {
                   <span className="text-sm text-gray-500 font-mono">{exp.period}</span>
                 </div>
                 <p className="text-accent font-medium">{exp.company}</p>
-                <p className="text-gray-600 dark:text-gray-400">{exp.description}</p>
+                <ul className="space-y-1.5 list-disc pl-5 text-gray-600 dark:text-gray-400">
+                  {exp.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {exp.skills.map((skill) => (
                     <span
@@ -140,11 +194,16 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold tracking-tight">Education</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-1">
-          {education.map((edu, index) => (
-            <div key={index} className="p-6 rounded-2xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800">
+          {education.map((edu) => (
+            <div
+              key={edu.school}
+              className="p-6 rounded-2xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800"
+            >
               <h3 className="font-semibold text-lg">{edu.school}</h3>
               <p className="text-gray-500 text-sm mb-2">{edu.degree}</p>
-              <span className="text-xs font-mono bg-accent/10 text-accent px-2 py-1 rounded">{edu.period}</span>
+              <span className="text-xs font-mono bg-accent/10 text-accent px-2 py-1 rounded">
+                {edu.period}
+              </span>
               <p className="text-gray-600 dark:text-gray-400 text-sm mt-3">{edu.description}</p>
             </div>
           ))}
@@ -155,16 +214,19 @@ export default function AboutPage() {
       <section className="space-y-8">
         <div className="flex items-center gap-3">
           <FileBadge className="h-6 w-6 text-accent" />
-          <h2 className="text-2xl font-bold tracking-tight">Certifications & Training</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Certifications & Recognition</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          {certifications.map((cert, index) => (
-            <div key={index} className="p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 flex flex-col justify-between">
+          {certifications.map((cert) => (
+            <div
+              key={cert.name}
+              className="p-4 rounded-xl bg-gray-50 dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 flex flex-col justify-between"
+            >
               <div>
                 <h3 className="font-medium">{cert.name}</h3>
                 <p className="text-sm text-gray-500 mt-1">{cert.issuer}</p>
               </div>
-              <p className="text-xs text-accent mt-3 font-mono">{cert.date}</p>
+              {cert.date && <p className="text-xs text-accent mt-3 font-mono">{cert.date}</p>}
             </div>
           ))}
         </div>
@@ -176,15 +238,24 @@ export default function AboutPage() {
           <Award className="h-6 w-6 text-accent" />
           <h2 className="text-2xl font-bold tracking-tight">Technical Skills</h2>
         </div>
-        <div className="flex flex-wrap gap-3">
-          {skills.map((skill) => (
-            <motion.div
-              key={skill}
-              whileHover={{ scale: 1.05 }}
-              className="px-4 py-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-sm text-sm font-medium"
-            >
-              {skill}
-            </motion.div>
+        <div className="space-y-5">
+          {skillGroups.map((group) => (
+            <div key={group.label}>
+              <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
+                {group.label}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <motion.span
+                    key={item}
+                    whileHover={reduceMotion ? undefined : { scale: 1.05 }}
+                    className="px-3 py-1.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-sm text-sm font-medium"
+                  >
+                    {item}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>
