@@ -1,0 +1,94 @@
+---
+title: "Upgrading the embedding model made my code search ten times slower and no more accurate"
+date: "2026-10-07"
+excerpt: "I measured a local code search index with a 16-question eval set. It told me a model upgrade was a downgrade, that my chunking was wrong, and that my ranking was answering a different question than the one I asked."
+tags: ["AI", "MCP", "Embeddings", "Semantic Search", "TypeScript", "Evaluation"]
+readingTime: 8
+featured: true
+---
+
+# Upgrading the embedding model made my code search ten times slower and no more accurate
+
+I built a small semantic code search tool so my coding agents stop reading files they don't need. Then I did the part nobody does: I measured whether it worked, and the answer was embarrassing in a useful way.
+
+## The problem
+
+An agent asked to fix a round timer starts by grepping. Grep finds the literal string, so it works only if the agent already knows what the code calls things. When it doesn't, the agent reads five files, finds nothing, reads three more. Every one of those reads is tokens, latency, and a chance to fill its context with the wrong mental model.
+
+Semantic search changes the first move. Instead of guessing identifiers, the agent describes the behavior and gets back a ranked list of places that plausibly implement it.
+
+## What I built
+
+`code-rag` is a Model Context Protocol server with three read-only tools:
+
+- `search_code(query, k?, scope?, path?)` returns ranked chunks with file path and line range
+- `index_status()` returns file and chunk counts, the backend, and freshness
+- `reindex(full?)` refreshes incrementally
+
+MCP for three read-only tools is a small protocol. FastMCP would have added a dependency and saved me maybe forty lines, so the whole thing runs on Node with no npm packages at all. The index is Node's built-in `node:sqlite`, vectors are float32 blobs, and search is brute-force cosine. Embeddings come from Ollama.
+
+One install serves every project. The server derives the repo root from MCP roots, falling back to the workspace folder and then the working directory, and keeps a separate index per repo, so I registered it once and every editor picks it up.
+
+## The part that made me measure
+
+I had no idea if it worked. The results looked plausible, which is exactly the state in which people ship bad retrieval and never find out.
+
+So I wrote sixteen questions in the language I actually type in, each paired with the file I believed held the answer, against a real repository of mine. Then I scored whether the expected file came back at rank 1, anywhere in the top 5, and the mean reciprocal rank across all sixteen.
+
+Sixteen is small. It is also enough to catch a tenfold regression, which turned out to matter.
+
+## The numbers
+
+| Configuration | Index time | recall@1 | recall@5 | MRR |
+| --- | --- | --- | --- | --- |
+| EmbeddingGemma v1, 40-line chunks, code-only | ~112 s | 75% | 94% | 0.828 |
+| EmbeddingGemma v2, 90-line chunks, code-only | ~20 min | 75% | 94% | 0.799 |
+| EmbeddingGemma v1, 40-line chunks, docs included | ~112 s | 56% | 94% | 0.721 |
+
+## The v2 surprise
+
+EmbeddingGemma 2 is the newer model, so I swapped it in. It only ships through ONNX and Transformers.js, and on my machine DirectML did not accelerate it, which meant it indexed on the CPU at roughly 0.7 chunks per second. A whole `src/` directory took about twenty minutes.
+
+Ollama's GGML engine reaches the GPU and indexes the same tree in about 112 seconds.
+
+The reason I removed the ONNX path entirely is the second and third columns. Same recall@1, same recall@5, MRR actually slightly worse. The newer model bought nothing for roughly ten times the cost, because the queries I type are about behavior and the inputs are short. Long sequences dominate embedding cost, so a bigger model on 40-line chunks is paying for headroom the task never uses.
+
+I would not have known any of that without the eval set.
+
+## Docs were hijacking the ranking
+
+With documentation included in the ranked list, recall@1 dropped from 75% to 56%. Nothing about the code changed. Design docs are written in prose about behavior, so on a behavioral query they score better than the implementation they describe. The index was fine; the ranking was answering a different question than the one I asked.
+
+The fix was not to stop indexing docs. They are useful when I want to search them. The fix was to make `search_code` default to code scope, with `docs` and `all` available when I mean them, and a `path` argument that overrides both.
+
+There is a small trick in how I tested it. Filtering docs out of an already-ranked list is equivalent to never having indexed them, because cosine scores are computed independently per chunk. So the code-only numbers came from one query returning fifty results and a filter, without a second twenty-minute reindex. If the scoring had been interdependent, that shortcut would have been a lie.
+
+## What the eval changed about the design
+
+Chunk boundaries. Fixed 40-line windows cut functions in half. Now JavaScript and TypeScript split on top-level declarations, Markdown splits on headings, and anything else falls back to overlapping windows. Each chunk carries its symbol name and line range, so a result says `roundLifecycle.js:120-165 resetRound` instead of a path alone.
+
+Small chunks get merged into the previous one. Splitting on every declaration produces plenty of one-line fragments that embed badly, so anything under the minimum is folded back.
+
+Chunk size itself came out of the same table. Forty lines, not ninety.
+
+## What only showed up in practice
+
+The index lives at `<repo>/.code-rag/index.db`, and the tool writes a single `*` into a `.gitignore` inside that directory. That ignores the directory's entire contents without touching the repository's own ignore file, which matters when the tool does not own the repo it is indexing.
+
+Several editor sessions can run their own MCP server against the same index. Opening with `PRAGMA busy_timeout = 5000` and WAL mode means a second session waits instead of failing when the first is mid-write. In practice this took two sessions colliding to notice.
+
+When Ollama is not running, `search_code` returns a note saying so, marked as an error, rather than throwing. The existing index stays valid, so falling back to grep while the daemon is down costs nothing. A retrieval tool that fails opaquely is worse than no retrieval tool.
+
+## Limits I am living with
+
+Brute-force cosine does not scale. It is fine for a pilot-sized index and it is why the setup needs no build step and no vector database. Past that, the store swaps to `sqlite-vec` and the search path changes shape.
+
+Sixteen questions over one repository measure my habits, not the world. Absolute recall drifts as the working tree and the question set move, so the table above is a snapshot, not a benchmark. What it reliably catches is a regression.
+
+And the questions are in Turkish, because that is what I type. A query distribution I do not actually produce was not worth optimizing for.
+
+## If you are building the same thing
+
+Write the eval set before you tune anything. It is maybe forty lines of code and it converts every later decision from taste into arithmetic. Mine told me a model upgrade was a downgrade, that my chunking was wrong, and that my ranking was answering the wrong question. None of those were guesses I could have made by looking at the output.
+
+The tool is at [github.com/kemaladlig/code-rag](https://github.com/kemaladlig/code-rag). It needs Ollama and Node 22 or newer, and no npm install.
