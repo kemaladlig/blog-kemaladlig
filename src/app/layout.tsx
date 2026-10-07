@@ -12,14 +12,14 @@ const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-he
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Kemal Adlığ | Mobile & Cloud Architect",
-  description: "Mobile Developer & Cloud Architect. Building scalable applications with React Native, Supabase, and Kubernetes.",
+  title: "Kemal Adlığ | AI-Native Product Engineer",
+  description: "Product engineer shipping production software by orchestrating AI agent workflows. React Native, Next.js, Supabase, and MCP tooling.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev',
-    title: "Kemal Adlığ | Mobile & Cloud Architect",
-    description: "Mobile Developer & Cloud Architect. Building scalable applications with React Native, Supabase, and Kubernetes.",
+    title: "Kemal Adlığ | AI-Native Product Engineer",
+    description: "Product engineer shipping production software by orchestrating AI agent workflows. React Native, Next.js, Supabase, and MCP tooling.",
     siteName: "Kemal Adlığ",
     images: [
       {
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kemal Adlığ | Mobile & Cloud Architect",
-    description: "Building scalable apps with React Native and Cloud Native tech.",
+    title: "Kemal Adlığ | AI-Native Product Engineer",
+    description: "Building production software with AI agent workflows, React Native, and MCP tooling.",
   },
   alternates: {
     types: {

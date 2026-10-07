@@ -29,11 +29,11 @@ export default function Hero() {
                     </div>
 
                     <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-neutral-50 dark:to-neutral-400 bg-opacity-50 font-heading tracking-tight pb-4">
-                        Crafting High-Performance <br /> Mobile & Cloud Solutions.
+                        Building Production Software <br /> with AI Agent Workflows.
                     </h1>
                     <p className="mt-4 font-normal text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-                        I&apos;m <span className="text-neutral-900 dark:text-white font-semibold">Kemal Adlığ</span>, a Senior Mobile Developer & Cloud Architect.
-                        I build pixel-perfect mobile apps and scalable backend infrastructures.
+                        I&apos;m <span className="text-neutral-900 dark:text-white font-semibold">Kemal Adlığ</span>. I ship production software by orchestrating AI agent workflows:
+                        a published cross-platform app, an AI document-processing SaaS, an MCP server for semantic code search, and a real-time multiplayer game platform.
                     </p>
 
                     <div className="flex items-center gap-4 mt-8">
