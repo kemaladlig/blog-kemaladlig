@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/ui/navbar";
 import { cn } from "@/lib/utils";
+import { SITE_URL } from "@/lib/site";
 
 import { Outfit, Plus_Jakarta_Sans, Inter } from "next/font/google";
 
@@ -12,12 +13,13 @@ const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-he
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Kemal Adlığ | AI-Native Product Engineer",
   description: "Product engineer shipping production software by orchestrating AI agent workflows. React Native, Next.js, Supabase, and MCP tooling.",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev',
+    url: SITE_URL,
     title: "Kemal Adlığ | AI-Native Product Engineer",
     description: "Product engineer shipping production software by orchestrating AI agent workflows. React Native, Next.js, Supabase, and MCP tooling.",
     siteName: "Kemal Adlığ",
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     types: {
-      'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev'}/rss.xml`,
+      'application/rss+xml': `${SITE_URL}/rss.xml`,
     },
   },
 };

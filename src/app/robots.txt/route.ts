@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev';
+import { SITE_URL } from "@/lib/site";
 
 export function GET() {
   const robotsTxt = `User-agent: *

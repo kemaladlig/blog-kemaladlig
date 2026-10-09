@@ -1,6 +1,6 @@
 import { getAllPosts } from "@/lib/mdx";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev';
+import { SITE_URL } from "@/lib/site";
 
 export async function GET() {
   const posts = getAllPosts();

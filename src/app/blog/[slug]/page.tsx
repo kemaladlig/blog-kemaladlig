@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, Clock } from "lucide-react";
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import SocialShare from "@/components/blog/social-share";
+import { SITE_URL } from "@/lib/site";
 
 interface Props {
   params: {
@@ -67,7 +68,7 @@ export default async function BlogPost({ params }: Props) {
         <SocialShare 
           title={post.title}
           excerpt={post.excerpt}
-          url={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://kemal.dev'}/blog/${post.slug}`}
+          url={`${SITE_URL}/blog/${post.slug}`}
         />
       </div>
 
