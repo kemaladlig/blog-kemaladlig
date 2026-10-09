@@ -46,7 +46,6 @@ export const projects: Project[] = [
       "Turkish SaaS that reads receipts and invoices arriving through WhatsApp and the web, then exports balanced journal entries in the formats Luca and Zirve accept.",
     tags: ["Next.js", "Supabase", "Gemini Vision", "TypeScript"],
     highlights: ["Model fallback chain", "Excel and XML export", "Second-per-receipt"],
-    featured: true,
   },
   {
     id: "screen-translator",
@@ -68,6 +67,7 @@ export const projects: Project[] = [
     tags: ["React 19", "Capacitor", "WebCrypto", "Argon2id"],
     highlights: ["AES-256-GCM", "66 unit tests", "17 e2e flows"],
     repo: "https://github.com/kemaladlig/vault-note",
+    featured: true,
   },
   {
     id: "gods-of-rift",

@@ -4,7 +4,7 @@ import { featuredProjects, otherProjects } from "@/lib/projects";
 export const metadata = {
   title: "Projects",
   description:
-    "Production software built and operated solo: an MCP server for semantic code search, an AI document-processing SaaS, a real-time multiplayer platform, and a published mobile app.",
+    "Production software built and operated solo: an MCP server for semantic code search, a real-time multiplayer platform, a desktop overlay for full-screen games, and a published mobile app.",
 };
 
 export default function ProjectsPage() {

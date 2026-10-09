@@ -12,7 +12,7 @@ export default function AboutPage() {
       company: "Self-employed · Remote",
       period: "Jan 2024 - Present",
       points: [
-        "Designed, built and still operate several production products alone: a published cross-platform mobile app on the App Store and Google Play, an AI document-processing SaaS for accounting firms, and a Chrome extension.",
+        "Designed, built and still operate several production products alone: a published cross-platform mobile app on the App Store and Google Play, a real-time multiplayer platform, and a Chrome extension.",
         "Run parallel coding agents from versioned spec files (AGENTS.md and PROJECT_MAP.md context maps), and review every diff before it merges.",
         "Built code-rag, a Model Context Protocol server for local semantic code search, with no npm dependencies and its own evaluation harness: 94% recall@5 and MRR 0.83 across a 16-question benchmark.",
         "Handle the whole release per product, from schema and authorization rules through test suites and CI to store review.",
@@ -133,9 +133,9 @@ export default function AboutPage() {
         <div className="space-y-4 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
           <p>
             I&apos;m a product engineer who ships production software alone, by orchestrating AI agent
-            workflows. Recent work spans a published cross-platform mobile app, an AI
-            document-processing SaaS for accounting firms, an MCP server for semantic code search, and
-            a dozen smaller products across web, mobile, desktop and real-time multiplayer.
+            workflows. Recent work spans a published cross-platform mobile app, an MCP server that
+            gives coding agents semantic code search, a real-time multiplayer game platform, and a
+            dozen smaller products across web, mobile and desktop.
           </p>
           <p>
             Most days that means writing the specs and context maps agents build from, wiring MCP tools

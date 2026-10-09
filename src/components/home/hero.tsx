@@ -33,7 +33,7 @@ export default function Hero() {
                     </h1>
                     <p className="mt-4 font-normal text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto leading-relaxed">
                         I&apos;m <span className="text-neutral-900 dark:text-white font-semibold">Kemal Adlığ</span>. I ship production software by orchestrating AI agent workflows:
-                        a published cross-platform app, an AI document-processing SaaS, an MCP server for semantic code search, and a real-time multiplayer game platform.
+                        a published cross-platform app, an MCP server for semantic code search, a real-time multiplayer game platform, and a desktop overlay that translates full-screen games.
                     </p>
 
                     <div className="flex items-center gap-4 mt-8">
